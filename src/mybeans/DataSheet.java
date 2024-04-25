@@ -20,4 +20,23 @@ public class DataSheet {
     public void removeDataItem(int i) {
         dataTable.remove(i);
     }
+
+    public ArrayList<Data> getDataTable() {
+        return dataTable;
+    }
+
+    public void setDataTable(ArrayList<Data> dataTable) {
+        this.dataTable = dataTable;
+    }
+
+    @Override
+    public String toString() {
+        return "DataSheet{" +
+                "dataTable =" + dataTable +
+                '}';
+    }
+
+    public DataSheet(ArrayList<Data> dataTable) {
+        this.dataTable = dataTable;
+    }
 }

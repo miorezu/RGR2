@@ -1,11 +1,13 @@
 package mybeans;
 
 import javax.swing.table.AbstractTableModel;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class DataSheetTableModel extends AbstractTableModel {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private int columnCount = 3;

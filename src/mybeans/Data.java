@@ -6,6 +6,15 @@ public class Data {
     private double x;
     private double y;
 
+    public Data() {
+    }
+
+    public Data(double y, double x, String date) {
+        this.y = y;
+        this.x = x;
+        this.date = date;
+    }
+
     @Override
     public String toString() {
         return "Data{" +
