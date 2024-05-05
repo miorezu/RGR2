@@ -21,42 +21,47 @@ public class DataSheetTable extends JPanel {
         if (table != null) table.revalidate();
     }
 
+    public void setDataSheet(DataSheet dataSheet) {
+        getTableModel().setDataSheet(dataSheet);
+        tableModel.fireTableDataChanged();
+    }
+
     public DataSheetTable() {
         table = new JTable();
+        DataSheet dataTable = new DataSheet();
         tableModel = new DataSheetTableModel();
         table.setModel(tableModel);
+        tableModel.setDataSheet(dataTable);
 
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        setLayout(new BorderLayout());
 
         JButton addButton = new JButton("Add");
         JButton deleteButton = new JButton("Delete");
 
         buttonPanel.add(addButton);
         buttonPanel.add(deleteButton);
+        add(buttonPanel, BorderLayout.SOUTH);
+        JScrollPane scrollPane = new JScrollPane(table);
+        add(scrollPane, BorderLayout.CENTER);
 
         addButton.addActionListener(e -> {
             tableModel.getDataSheet().addDataItem(new Data());
             tableModel.setRowCount(tableModel.getRowCount() + 1);
-            table.revalidate();
-            tableModel.fireDataSheetChange();
+            tableModel.fireTableRowsInserted(tableModel.getRowCount() - 1, tableModel.getRowCount() - 1);
         });
+
         deleteButton.addActionListener(e -> {
             if (tableModel.getRowCount() > 1) {
                 tableModel.setRowCount(tableModel.getRowCount() - 1);
-                tableModel.getDataSheet().removeDataItem(
-                        tableModel.getDataSheet().size() - 1);
-                table.revalidate();
-                tableModel.fireDataSheetChange();
+                tableModel.getDataSheet().removeDataItem(tableModel.getRowCount());
+                tableModel.fireTableRowsDeleted(tableModel.getRowCount(), tableModel.getRowCount());
             } else {
                 tableModel.getDataSheet().getDataItem(0).setDate("");
                 tableModel.getDataSheet().getDataItem(0).setX(0);
                 tableModel.getDataSheet().getDataItem(0).setY(0);
-                table.revalidate();
-                table.repaint();
-                tableModel.fireDataSheetChange();
+                tableModel.fireTableDataChanged();
             }
-
         });
     }
 }

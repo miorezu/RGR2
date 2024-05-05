@@ -73,9 +73,7 @@ public class DataSheetGraph extends JPanel {
     }
 
     private double minX() {
-// Вісь повинна відображатись
         double result = 0;
-// Визначаємо мінімальне значення Х
         if (dataSheet != null) {
             int size = dataSheet.size();
             for (int i = 0; i < size; i++)
@@ -86,7 +84,6 @@ public class DataSheetGraph extends JPanel {
     }
 
     private double maxX() {
-// Вісь повинна відображатись
         double result = 0;
         if (dataSheet != null) {
             int size = dataSheet.size();
@@ -98,7 +95,6 @@ public class DataSheetGraph extends JPanel {
     }
 
     private double minY() {
-// Вісь повинна відображатись
         double result = 0;
         if (dataSheet != null) {
             int size = dataSheet.size();
@@ -110,7 +106,6 @@ public class DataSheetGraph extends JPanel {
     }
 
     private double maxY() {
-// Вісь повинна відображатись
         double result = 0;
         if (dataSheet != null) {
             int size = dataSheet.size();
@@ -138,27 +133,22 @@ public class DataSheetGraph extends JPanel {
         yMin = minY() - deltaY;
         yMax = maxY() + deltaY;
 
-// Визначаємо коефіцієнти перетворення та положення початку координат
         double xScale = width / (xMax - xMin);
         double yScale = height / (yMax - yMin);
         double x0 = -xMin * xScale;
         double y0 = yMax * xScale;
 
-// Заповнюємо область графіка білим кольором
         Paint oldColor = gr.getPaint();
         gr.setPaint(Color.WHITE);
         gr.fill(new Rectangle2D.Double(0.0, 0.0, width, height));
         Stroke oldStroke = gr.getStroke();
         Font oldFont = gr.getFont();
 
-// Створюємо лінії сітки
-// Сітка для вісі X
         float[] dashPattern = {10, 10};
         gr.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_BUTT,
                 BasicStroke.JOIN_MITER, 10.0f, dashPattern, 0));
         gr.setFont(new Font("Serif", Font.BOLD, 14));
 
-// Взагалі слід створити метод для обчислення кроку сітки
         double xStep = 1;
         for (double dx = xStep; dx < xMax; dx += xStep) {
             double x = x0 + dx * xScale;
@@ -175,8 +165,6 @@ public class DataSheetGraph extends JPanel {
             gr.drawString(Math.round(dx / xStep) * xStep + "", (int) x + 2, 10);
         }
 
-// Сітка для вісі Y
-// Взагалі слід створити метод для обчислення кроку сітки
         double yStep = 1;
         for (double dy = yStep; dy < yMax; dy += yStep) {
             double y = y0 - dy * yScale;
@@ -193,7 +181,6 @@ public class DataSheetGraph extends JPanel {
             gr.drawString(Math.round(dy / yStep) * yStep + "", 2, (int) y - 2);
         }
 
-// Вісі координат
         gr.setPaint(Color.BLACK);
         gr.setStroke(new BasicStroke(3.0f));
         gr.draw(new Line2D.Double(x0, 0, x0, height));
@@ -201,7 +188,6 @@ public class DataSheetGraph extends JPanel {
         gr.drawString("X", (int) width - 10, (int) y0 - 2);
         gr.drawString("Y", (int) x0 + 2, 10);
 
-// Відображаємо точки, якщо визначено сховище
         if (dataSheet != null) {
             if (!isConnected) {
                 for (int i = 0; i < dataSheet.size(); i++) {
@@ -226,7 +212,6 @@ public class DataSheetGraph extends JPanel {
                 }
             }
 
-// Відновляємо вихідні значення
             gr.setPaint(oldColor);
             gr.setStroke(oldStroke);
             gr.setFont(oldFont);

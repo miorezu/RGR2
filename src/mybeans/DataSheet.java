@@ -39,4 +39,8 @@ public class DataSheet {
     public DataSheet(ArrayList<Data> dataTable) {
         this.dataTable = dataTable;
     }
+
+    public DataSheet() {
+        this.dataTable = new ArrayList<>();
+    }
 }
